@@ -188,7 +188,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
     PC0     ------> TIM1_CH1
     PC1     ------> TIM1_CH2 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+    GPIO_InitStruct.Pin = PWM_SERVO_0_Pin|PWM_SERVO_1_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

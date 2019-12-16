@@ -59,6 +59,10 @@ void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
 #define SERVO_PWM_PERIOD 2000-1
+#define PWM_SERVO_0_Pin GPIO_PIN_0
+#define PWM_SERVO_0_GPIO_Port GPIOC
+#define PWM_SERVO_1_Pin GPIO_PIN_1
+#define PWM_SERVO_1_GPIO_Port GPIOC
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
