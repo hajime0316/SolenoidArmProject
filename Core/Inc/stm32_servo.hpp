@@ -30,7 +30,7 @@ class Stm32Servo {
   Stm32Servo(TIM_HandleTypeDef *, uint32_t, Config);
   virtual ~Stm32Servo();
   double add_angle(double);
-  void set_angle(double);
+  double set_angle(double);
   double get_angle() const;
 
  private: // privateなメソッド
