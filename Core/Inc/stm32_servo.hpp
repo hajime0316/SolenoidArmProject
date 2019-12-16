@@ -32,6 +32,9 @@ class Stm32Servo {
   double add_angle(double);
   void set_angle(double);
   double get_angle() const;
+
+ private: // privateなメソッド
+  void set_ccr_register(TIM_HandleTypeDef *, uint32_t, uint32_t);
 };
 
 #endif // STM32_SERVO_HPP_
