@@ -22,6 +22,7 @@
 #include "main.h"
 #include "tim.h"
 #include "gpio.h"
+#include "cppmain.hpp"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -92,7 +93,7 @@ int main(void)
   MX_TIM6_Init();
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
-
+  setup();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,7 +101,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
+    loop();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
