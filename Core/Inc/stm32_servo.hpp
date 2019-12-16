@@ -13,7 +13,7 @@
 
 class Stm32Servo {
   struct Config {
-    uint32_t max_count;
+    uint32_t counter_period;
     double max_duty_rate;
     double max_angle;
     double min_duty_rate;
