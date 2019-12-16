@@ -12,6 +12,7 @@
 #include "main.h"
 
 class Stm32Servo {
+ public:
   struct Config {
     uint32_t counter_period;
     double max_duty_rate;
