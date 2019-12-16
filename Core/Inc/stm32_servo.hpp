@@ -6,6 +6,9 @@
  * Created on 2019/12/17
  */
 
+#ifndef STM32_SERVO_HPP_
+#define STM32_SERVO_HPP_
+
 class Stm32Servo {
  private:
   /* data */
@@ -13,3 +16,5 @@ class Stm32Servo {
   Stm32Servo(/* args */);
   virtual ~Stm32Servo();
 };
+
+#endif // STM32_SERVO_HPP_
