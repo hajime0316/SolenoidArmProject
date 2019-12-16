@@ -19,4 +19,11 @@ void loop(void)
 //**************************
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+  // TIM6 10msecタイマ
+  if (htim->Instance == TIM6) {
+  }
+
+  // TIM7 100msecタイマ
+  else if (htim->Instance == TIM7) {
+  }
 }
