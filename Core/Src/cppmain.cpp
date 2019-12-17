@@ -24,6 +24,7 @@ void loop(void)
     HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, GPIO_PIN_RESET);
   }
+  stm32_printf("Hello world!\r\n");
 }
 
 //**************************
