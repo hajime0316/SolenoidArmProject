@@ -3,6 +3,7 @@
 #include "main.h"
 #include "tim.h"
 #include "gpio.h"
+#include "usart.h"
 
 #include "stm32_printf/stm32_printf.h"
 
@@ -10,6 +11,7 @@
 
 void setup(void)
 {
+  stm32_printf_init(&huart1);
 }
 
 void loop(void)
