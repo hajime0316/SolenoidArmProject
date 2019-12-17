@@ -4,8 +4,6 @@
 #include "tim.h"
 #include "gpio.h"
 
-#include "stm32_servo.hpp"
-
 #define CONTROL_LOOP_TIME 0.01 // sec
 
 void setup(void)
