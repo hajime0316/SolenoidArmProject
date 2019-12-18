@@ -50,8 +50,6 @@ extern "C" {
 
 /* USER CODE END EM */
 
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -60,7 +58,17 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define SERVO_PWM_PERIOD 2000-1
+#define SERVO_PWM_PERIOD (2000 - 1)
+#define B1_Pin GPIO_PIN_13
+#define B1_GPIO_Port GPIOC
+#define PWM_SERVO_0_Pin GPIO_PIN_0
+#define PWM_SERVO_0_GPIO_Port GPIOC
+#define PWM_SERVO_1_Pin GPIO_PIN_1
+#define PWM_SERVO_1_GPIO_Port GPIOC
+#define LD2_Pin GPIO_PIN_5
+#define LD2_GPIO_Port GPIOA
+#define SOLENOID_Pin GPIO_PIN_0
+#define SOLENOID_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
