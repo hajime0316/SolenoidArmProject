@@ -20,6 +20,12 @@ double servo_1_output = SERVO_1_DUTY_RATE_VERTICAL;
 
 int time_count = 0;
 
+enum class Move{
+  OPEN_CARD,
+  CHANGE_TO_ATTACK_POSITION,
+};
+Move status, following_status;
+
 void setup(void)
 {
   stm32_printf_init(&huart1);
