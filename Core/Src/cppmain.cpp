@@ -20,11 +20,15 @@ double servo_1_output = SERVO_1_DUTY_RATE_VERTICAL;
 
 int time_count = 0;
 
-enum class Move{
+enum class Move {
   OPEN_CARD,
   CHANGE_TO_ATTACK_POSITION,
+  WAIT,
 };
 Move status, following_status;
+
+bool move_open_card();
+bool move_change_to_attack_position();
 
 void setup(void)
 {
@@ -49,6 +53,23 @@ void loop(void)
     HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, GPIO_PIN_RESET);
   }
 
+  switch (status) {
+    case Move::OPEN_CARD:
+      if (move_open_card()) status = Move::WAIT;
+      break;
+
+    case Move::CHANGE_TO_ATTACK_POSITION:
+      if (move_change_to_attack_position()) status = Move::WAIT;
+
+      break;
+
+    case Move::WAIT:
+      break;
+
+    default:
+      break;
+  }
+
   SET_DUTY_RATE_SERVO_0(servo_0_output);
   SET_DUTY_RATE_SERVO_1(servo_1_output);
 
@@ -70,4 +91,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
       time_count--;
     }
   }
+}
+
+bool move_open_card()
+{
+  return true;
+}
+
+bool move_change_to_attack_position()
+{
+  return true;
 }
