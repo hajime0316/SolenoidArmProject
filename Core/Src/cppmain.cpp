@@ -22,6 +22,8 @@ void setup(void)
 {
   stm32_printf_init(&huart1);
 
+  SET_DUTY_RATE_SERVO_0(servo_0_output);
+  SET_DUTY_RATE_SERVO_1(servo_1_output);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
 }
