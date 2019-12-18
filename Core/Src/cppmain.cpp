@@ -28,7 +28,7 @@ enum class Move {
   CHANGE_TO_ATTACK_POSITION,
   WAIT,
 };
-Move status, following_status;
+Move status;
 
 bool move_open_card();
 bool move_change_to_attack_position();
@@ -97,7 +97,93 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 bool move_open_card()
 {
-  return true;
+  static enum {
+    ARM_DOWN_WITHOUT_CARD,
+    ATTRACT_CARD,
+    ARM_UP_WITH_CARD,
+    WAIT_FEW_SECOND,
+    ARM_DOWN_WITH_CARD,
+    DISTRACT_CARD,
+    ARM_UP_WITHOUT_CARD,
+  } status,
+      following_status;
+
+  switch (status) {
+    case ARM_DOWN_WITHOUT_CARD:
+      if (status != following_status) {
+        time_count = 5;
+        following_status = status;
+      }
+      servo_0_output = SERVO_0_DUTY_RATE_DOWN;
+      stm32_printf("  ARM_DOWN_WITHOUT_CARD  ");
+      if (time_count == 0) status = ATTRACT_CARD;
+      break;
+
+    case ATTRACT_CARD:
+      if (status != following_status) {
+        time_count = 2;
+        following_status = status;
+      }
+      solenoid_output = SOLENOID_ON;
+      stm32_printf("  ATTRACT_CARD  ");
+      if (time_count == 0) status = ARM_UP_WITH_CARD;
+      break;
+
+    case ARM_UP_WITH_CARD:
+      if (status != following_status) {
+        time_count = 5;
+        following_status = status;
+      }
+      servo_0_output = SERVO_0_DUTY_RATE_UP;
+      stm32_printf("  ARM_UP_WITH_CARD  ");
+      if (time_count == 0) status = WAIT_FEW_SECOND;
+      break;
+
+    case WAIT_FEW_SECOND:
+      if (status != following_status) {
+        time_count = 50;
+        following_status = status;
+      }
+      stm32_printf("  WAIT_FEW_SECOND  ");
+      if (time_count == 0) status = ARM_DOWN_WITH_CARD;
+
+    case ARM_DOWN_WITH_CARD:
+      if (status != following_status) {
+        time_count = 5;
+        following_status = status;
+      }
+      servo_0_output = SERVO_0_DUTY_RATE_DOWN;
+      stm32_printf("  ARM_DOWN_WITH_CARD  ");
+      if (time_count == 0) status = DISTRACT_CARD;
+      break;
+
+    case DISTRACT_CARD:
+      if (status != following_status) {
+        time_count = 2;
+        following_status = status;
+      }
+      solenoid_output = SOLENOID_OFF;
+      stm32_printf("  DISTRACT_CARD  ");
+      if (time_count == 0) status = ARM_UP_WITHOUT_CARD;
+      break;
+
+    case ARM_UP_WITHOUT_CARD:
+      if (status != following_status) {
+        time_count = 5;
+        following_status = status;
+      }
+      servo_0_output =  SERVO_0_DUTY_RATE_UP;
+      stm32_printf("  ARM_UP_WITHOUT_CARD  ");
+      if (time_count == 0) {
+        status = ARM_DOWN_WITHOUT_CARD;
+        return true;
+      }
+      break;
+
+    default:
+      break;
+  }
+  return false;
 }
 
 bool move_change_to_attack_position()
