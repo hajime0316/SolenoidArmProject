@@ -28,7 +28,7 @@ enum class Move {
   CHANGE_TO_ATTACK_POSITION,
   WAIT,
 };
-Move status;
+Move status = Move::WAIT;
 
 bool move_open_card();
 bool move_change_to_attack_position();
@@ -105,8 +105,8 @@ bool move_open_card()
     ARM_DOWN_WITH_CARD,
     DISTRACT_CARD,
     ARM_UP_WITHOUT_CARD,
-  } status,
-      following_status;
+  } status = ARM_DOWN_WITHOUT_CARD,
+    following_status = ARM_UP_WITHOUT_CARD;
 
   switch (status) {
     case ARM_DOWN_WITHOUT_CARD:
@@ -172,7 +172,7 @@ bool move_open_card()
         time_count = 5;
         following_status = status;
       }
-      servo_0_output =  SERVO_0_DUTY_RATE_UP;
+      servo_0_output = SERVO_0_DUTY_RATE_UP;
       stm32_printf("  ARM_UP_WITHOUT_CARD  ");
       if (time_count == 0) {
         status = ARM_DOWN_WITHOUT_CARD;
