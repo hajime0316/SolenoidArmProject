@@ -14,9 +14,12 @@
 #define SERVO_0_DUTY_RATE_DOWN 0.089
 #define SERVO_1_DUTY_RATE_VERTICAL 0.104
 #define SERVO_1_DUTY_RATE_HORIZONTAL 0.057
+#define SOLENOID_ON GPIO_PIN_RESET
+#define SOLENOID_OFF GPIO_PIN_SET
 
 double servo_0_output = SERVO_0_DUTY_RATE_UP;
 double servo_1_output = SERVO_1_DUTY_RATE_VERTICAL;
+GPIO_PinState solenoid_output = SOLENOID_OFF;
 
 int time_count = 0;
 
@@ -46,11 +49,9 @@ void loop(void)
 {
   if (HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == GPIO_PIN_RESET) {
     HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, GPIO_PIN_SET);
   }
   else {
     HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, GPIO_PIN_RESET);
   }
 
   switch (status) {
@@ -72,6 +73,7 @@ void loop(void)
 
   SET_DUTY_RATE_SERVO_0(servo_0_output);
   SET_DUTY_RATE_SERVO_1(servo_1_output);
+  HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, solenoid_output);
 
   stm32_printf("%d", time_count);
   stm32_printf("\r\n");
