@@ -58,7 +58,7 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define SERVO_PWM_PERIOD 2000-1
+#define SERVO_PWM_PERIOD (2000 - 1)
 #define B1_Pin GPIO_PIN_13
 #define B1_GPIO_Port GPIOC
 #define PWM_SERVO_0_Pin GPIO_PIN_0
