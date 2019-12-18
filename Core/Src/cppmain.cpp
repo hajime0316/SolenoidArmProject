@@ -10,9 +10,13 @@
 #define CONTROL_LOOP_TIME 0.01 // sec
 #define SET_DUTY_RATE_SERVO_0(duty_rate) (htim1.Instance->CCR1 = SERVO_PWM_PERIOD * duty_rate)
 #define SET_DUTY_RATE_SERVO_1(duty_rate) (htim1.Instance->CCR2 = SERVO_PWM_PERIOD * duty_rate)
+#define SERVO_0_DUTY_RATE_UP 0.045
+#define SERVO_0_DUTY_RATE_DOWN 0.089
+#define SERVO_1_DUTY_RATE_VERTICAL 0.104
+#define SERVO_1_DUTY_RATE_HORIZONTAL 0.057
 
-double servo_0_output = 0.05;
-double servo_1_output = 0.06;
+double servo_0_output = SERVO_0_DUTY_RATE_UP;
+double servo_1_output = SERVO_1_DUTY_RATE_VERTICAL;
 
 void setup(void)
 {
