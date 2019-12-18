@@ -3,11 +3,15 @@
 #include "main.h"
 #include "tim.h"
 #include "gpio.h"
+#include "usart.h"
+
+#include "stm32_printf/stm32_printf.h"
 
 #define CONTROL_LOOP_TIME 0.01 // sec
 
 void setup(void)
 {
+  stm32_printf_init(&huart1);
 }
 
 void loop(void)
@@ -20,6 +24,7 @@ void loop(void)
     HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, GPIO_PIN_RESET);
   }
+  stm32_printf("Hello world!\r\n");
 }
 
 //**************************
