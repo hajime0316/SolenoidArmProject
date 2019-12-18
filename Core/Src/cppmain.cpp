@@ -42,7 +42,6 @@ void loop(void)
     HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, GPIO_PIN_RESET);
   }
-  stm32_printf("Hello world!");
 
   SET_DUTY_RATE_SERVO_0(servo_0_output);
   SET_DUTY_RATE_SERVO_1(servo_1_output);
