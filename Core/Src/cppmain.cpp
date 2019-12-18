@@ -8,6 +8,8 @@
 #include "stm32_printf/stm32_printf.h"
 
 #define CONTROL_LOOP_TIME 0.01 // sec
+#define SET_DUTY_RATE_SERVO_0(duty_rate) (htim1.Instance->CCR1 = SERVO_PWM_PERIOD * duty_rate)
+#define SET_DUTY_RATE_SERVO_1(duty_rate) (htim1.Instance->CCR2 = SERVO_PWM_PERIOD * duty_rate)
 
 void setup(void)
 {
@@ -25,6 +27,8 @@ void loop(void)
     HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, GPIO_PIN_RESET);
   }
   stm32_printf("Hello world!\r\n");
+  SET_DUTY_RATE_SERVO_0(0.05);
+  SET_DUTY_RATE_SERVO_1(0.05);
 }
 
 //**************************
