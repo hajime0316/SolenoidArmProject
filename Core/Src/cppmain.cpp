@@ -18,6 +18,8 @@
 double servo_0_output = SERVO_0_DUTY_RATE_UP;
 double servo_1_output = SERVO_1_DUTY_RATE_VERTICAL;
 
+int time_count = 0;
+
 void setup(void)
 {
   stm32_printf_init(&huart1);
