@@ -146,6 +146,7 @@ bool move_open_card()
       }
       stm32_printf("  WAIT_FEW_SECOND  ");
       if (time_count == 0) status = ARM_DOWN_WITH_CARD;
+      break;
 
     case ARM_DOWN_WITH_CARD:
       if (status != following_status) {
