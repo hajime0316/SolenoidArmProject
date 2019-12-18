@@ -11,6 +11,9 @@
 #define SET_DUTY_RATE_SERVO_0(duty_rate) (htim1.Instance->CCR1 = SERVO_PWM_PERIOD * duty_rate)
 #define SET_DUTY_RATE_SERVO_1(duty_rate) (htim1.Instance->CCR2 = SERVO_PWM_PERIOD * duty_rate)
 
+double servo_0_output = 0.05;
+double servo_1_output = 0.06;
+
 void setup(void)
 {
   stm32_printf_init(&huart1);
@@ -30,8 +33,9 @@ void loop(void)
     HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, GPIO_PIN_RESET);
   }
   stm32_printf("Hello world!\r\n");
-  SET_DUTY_RATE_SERVO_0(0.05);
-  SET_DUTY_RATE_SERVO_1(0.05);
+
+  SET_DUTY_RATE_SERVO_0(servo_0_output);
+  SET_DUTY_RATE_SERVO_1(servo_1_output);
 }
 
 //**************************
