@@ -24,6 +24,8 @@ void setup(void)
 {
   stm32_printf_init(&huart1);
 
+  HAL_TIM_Base_Start_IT(&htim7);
+
   SET_DUTY_RATE_SERVO_0(servo_0_output);
   SET_DUTY_RATE_SERVO_1(servo_1_output);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
@@ -40,10 +42,13 @@ void loop(void)
     HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, GPIO_PIN_RESET);
   }
-  stm32_printf("Hello world!\r\n");
+  stm32_printf("Hello world!");
 
   SET_DUTY_RATE_SERVO_0(servo_0_output);
   SET_DUTY_RATE_SERVO_1(servo_1_output);
+
+  stm32_printf("%d", time_count);
+  stm32_printf("\r\n");
 }
 
 //**************************
@@ -53,5 +58,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   // TIM7 100msecタイマ
   if (htim->Instance == TIM7) {
+    if (time_count <= 0) {
+      time_count = 0;
+    }
+    else {
+      time_count--;
+    }
   }
 }
