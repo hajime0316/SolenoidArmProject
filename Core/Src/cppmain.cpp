@@ -26,12 +26,14 @@ int time_count = 0;
 enum class Move {
   OPEN_CARD,
   CHANGE_TO_ATTACK_POSITION,
+  CHANGE_TO_DEFENSE_POSITION,
   WAIT,
 };
 Move status = Move::WAIT;
 
 bool move_open_card();
 bool move_change_to_attack_position();
+bool move_change_to_defense_position();
 
 void setup(void)
 {
@@ -63,6 +65,9 @@ void loop(void)
       if (move_change_to_attack_position()) status = Move::WAIT;
 
       break;
+
+    case Move::CHANGE_TO_DEFENSE_POSITION:
+      if (move_change_to_attack_position()) status = Move::WAIT;
 
     case Move::WAIT:
       break;
@@ -188,6 +193,11 @@ bool move_open_card()
 }
 
 bool move_change_to_attack_position()
+{
+  return true;
+}
+
+bool move_change_to_defense_position()
 {
   return true;
 }
