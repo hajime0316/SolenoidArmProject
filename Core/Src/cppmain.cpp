@@ -76,17 +76,17 @@ void loop(void)
       break;
   }
 
-  if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_3) == GPIO_PIN_RESET) {
+  if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_3) == GPIO_PIN_SET) {
     if (status == Move::WAIT) {
       status = Move::OPEN_CARD;
     }
   }
-  else if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) == GPIO_PIN_RESET) {
+  else if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) == GPIO_PIN_SET) {
     if (status == Move::WAIT) {
       status = Move::CHANGE_TO_ATTACK_POSITION;
     }
   }
-  else if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10) == GPIO_PIN_RESET) {
+  else if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10) == GPIO_PIN_SET) {
     if (status == Move::WAIT) {
       status = Move::CHANGE_TO_DEFENSE_POSITION;
     }
