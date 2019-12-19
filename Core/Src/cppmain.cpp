@@ -76,6 +76,22 @@ void loop(void)
       break;
   }
 
+  if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_3) == GPIO_PIN_RESET) {
+    if (status == Move::WAIT) {
+      status = Move::OPEN_CARD;
+    }
+  }
+  else if (HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5) == GPIO_PIN_RESET) {
+    if (status == Move::WAIT) {
+      status = Move::CHANGE_TO_ATTACK_POSITION;
+    }
+  }
+  else if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10) == GPIO_PIN_RESET) {
+    if (status == Move::WAIT) {
+      status = Move::CHANGE_TO_DEFENSE_POSITION;
+    }
+  }
+
   SET_DUTY_RATE_SERVO_0(servo_0_output);
   SET_DUTY_RATE_SERVO_1(servo_1_output);
   HAL_GPIO_WritePin(SOLENOID_GPIO_Port, SOLENOID_Pin, solenoid_output);
