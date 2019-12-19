@@ -67,7 +67,7 @@ void loop(void)
       break;
 
     case Move::CHANGE_TO_DEFENSE_POSITION:
-      if (move_change_to_attack_position()) status = Move::WAIT;
+      if (move_change_to_defense_position()) status = Move::WAIT;
 
     case Move::WAIT:
       break;
