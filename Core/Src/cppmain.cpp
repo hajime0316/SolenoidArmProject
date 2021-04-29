@@ -210,7 +210,106 @@ bool move_open_card()
 
 bool move_change_to_attack_position()
 {
-  return true;
+  static enum {
+    HAND_TURN_TO_HORIZONTAL,
+    ARM_DOWN_WITHOUT_CARD,
+    ATTRACT_CARD,
+    ARM_HARF_UP,
+    HAND_TURN_TO_VERTICAL,
+    ARM_HARF_DOWN,
+    DISTRACT_CARD,
+    ARM_UP_WITHOUT_CARD,
+  } status = ARM_DOWN_WITHOUT_CARD,
+    following_status = ARM_UP_WITHOUT_CARD;
+
+  switch (status) {
+    case HAND_TURN_TO_HORIZONTAL:
+      if (status != following_status) {
+        time_count = 2;
+        following_status = status;
+      }
+      servo_1_output = SERVO_1_DUTY_RATE_HORIZONTAL;
+      stm32_printf("  HAND_TURN_TO_HORIZONTAL  ");
+      if (time_count == 0) status = ARM_DOWN_WITHOUT_CARD;
+      break;
+
+    case ARM_DOWN_WITHOUT_CARD:
+      if (status != following_status) {
+        time_count = 5;
+        following_status = status;
+      }
+      servo_0_output = SERVO_0_DUTY_RATE_DOWN;
+      stm32_printf("  ARM_DOWN_WITHOUT_CARD  ");
+      if (time_count == 0) status = ATTRACT_CARD;
+      break;
+
+    case ATTRACT_CARD:
+      if (status != following_status) {
+        time_count = 5;
+        following_status = status;
+      }
+      solenoid_output = SOLENOID_ON;
+      stm32_printf("  ATTRACT_CARD  ");
+      if (time_count == 0) status = ARM_HARF_UP;
+      break;
+
+    case ARM_HARF_UP:
+      if (status != following_status) {
+        time_count = 3;
+        following_status = status;
+      }
+      servo_0_output = 0.06;
+      stm32_printf("  ARM_HARF_UP  ");
+      if (time_count == 0) status = HAND_TURN_TO_VERTICAL;
+      break;
+
+    case HAND_TURN_TO_VERTICAL:
+      if (status != following_status) {
+        time_count = 5;
+        following_status = status;
+      }
+      servo_1_output = SERVO_1_DUTY_RATE_VERTICAL;
+      stm32_printf("  HAND_TURN_TO_VERTICAL  ");
+      if (time_count == 0) status = ARM_HARF_DOWN;
+      break;
+
+    case ARM_HARF_DOWN:
+      if (status != following_status) {
+        time_count = 3;
+        following_status = status;
+      }
+      servo_0_output = SERVO_0_DUTY_RATE_DOWN;
+      stm32_printf("  ARM_HARF_DOWN  ");
+      if (time_count == 0) status = DISTRACT_CARD;
+      break;
+
+    case DISTRACT_CARD:
+      if (status != following_status) {
+        time_count = 3;
+        following_status = status;
+      }
+      solenoid_output = SOLENOID_OFF;
+      stm32_printf("  DISTRACT_CARD  ");
+      if (time_count == 0) status = ARM_UP_WITHOUT_CARD;
+      break;
+
+    case ARM_UP_WITHOUT_CARD:
+      if (status != following_status) {
+        time_count = 5;
+        following_status = status;
+      }
+      servo_0_output = SERVO_0_DUTY_RATE_UP;
+      stm32_printf("  ARM_UP_WITHOUT_CARD  ");
+      if (time_count == 0) {
+        status = HAND_TURN_TO_HORIZONTAL;
+        return true;
+      }
+      break;
+
+    default:
+      break;
+  }
+  return false;
 }
 
 bool move_change_to_defense_position()
